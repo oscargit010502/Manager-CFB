@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+var/
+staticfiles/
+.coverage
+htmlcov/
+*.sqlite3*
+playwright-report/

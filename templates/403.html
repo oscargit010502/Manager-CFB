@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Acceso restringido{% endblock %}
+{% block content %}<section class="card"><div class="card-body"><p class="eyebrow">ACCESO RESTRINGIDO</p><h1>No tienes permiso para esta acción.</h1><p>Solicita a la persona administradora el acceso que necesitas para tu función.</p><a class="button button-secondary" href="{% url 'dashboard' %}">Volver al resumen</a></div></section>{% endblock %}

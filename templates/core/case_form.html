@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} · Casa Funeraria Baranoa{% endblock %}
+{% block content %}
+<div class="page-header"><div><p class="eyebrow">Gestión de servicios</p><h1 class="page-title">{{ title }}</h1><p class="page-description">Identifica a la persona fallecida, el contacto responsable y las condiciones de atención.</p></div></div>
+<section class="card"><div class="card-body">
+<form method="post" novalidate>{% csrf_token %}
+{{ form.non_field_errors }}
+<div class="form-grid">{% for field in form %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span aria-label="obligatorio">*</span>{% endif %}</label>{{ field }}{% if field.help_text %}<small class="muted">{{ field.help_text }}</small>{% endif %}{{ field.errors }}</div>{% endfor %}</div>
+{% if perms.core.manage_operations %}<p class="muted">¿Falta una empresa? <a href="{% url 'partner_create' %}">Registrar empresa exequial</a> antes de guardar el expediente.</p>{% endif %}
+<div class="actions"><button class="button button-primary" type="submit">Guardar expediente</button><a class="button button-secondary" href="{% if case %}{% url 'case_detail' case.pk %}{% else %}{% url 'case_list' %}{% endif %}">Cancelar</a></div>
+</form></div></section>
+{% endblock %}

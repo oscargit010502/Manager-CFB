@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Ingresar{% endblock %}
+{% block content %}
+<div class="login-layout">
+  <section class="login-story"><div class="login-brand">CASA FUNERARIA <strong>BARANOA</strong></div><div><span class="eyebrow">CERCA DE LAS FAMILIAS</span><h1>El cuidado está<br>en cada detalle.</h1><p>Un espacio para coordinar el servicio, acompañar cada trámite y mantener todo en orden.</p></div><span class="login-location">Baranoa, Atlántico · Colombia</span></section>
+  <section class="login-panel"><div class="login-form-wrap"><span class="eyebrow">ESPACIO PRIVADO</span><h2>Bienvenido de nuevo</h2><p class="muted">Ingresa con tu cuenta para continuar.</p>
+    <form method="post" class="login-form">{% csrf_token %}
+      {% if form.errors %}<div class="alert alert-error" role="alert">{% if form.non_field_errors %}{{ form.non_field_errors }}{% else %}No fue posible iniciar sesión. Verifica tu usuario y contraseña.{% endif %}</div>{% endif %}
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <div class="field"><label for="id_username">Usuario</label><input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" autocomplete="username" autocapitalize="none" required autofocus maxlength="150"></div>
+      <div class="field"><label for="id_password">Contraseña</label><input type="password" name="password" id="id_password" autocomplete="current-password" required></div>
+      <button type="submit" class="button button-primary button-full">Ingresar al sistema <span aria-hidden="true">→</span></button>
+    </form><p class="login-help">Si necesitas una cuenta o recuperar tu acceso, comunícate con la persona administradora.</p></div></section>
+</div>
+{% endblock %}
