@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load cfb %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-header"><div><a class="back-link" href="{% url 'case_detail' pk=case.pk %}">← {{ case.code }}</a><p class="eyebrow">CONTROL FINANCIERO</p><h1>{{ title }}</h1><p class="muted">{{ case.deceased_name }}</p></div></div>
+<section class="card form-card"><div class="card-body">
+{% if warning %}<p class="alert">{{ warning }}</p>{% endif %}
+{% if entry %}<div class="summary-strip"><span>Facturado <strong>{{ entry.amount|money }}</strong></span><span>Recaudado <strong>{{ entry.paid_total|money }}</strong></span><span>Saldo <strong>{{ entry.balance|money }}</strong></span></div>{% endif %}
+<form method="post" novalidate>{% csrf_token %}
+{% if form.non_field_errors %}<div class="errorlist" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+{% for field in form %}{% if field.is_hidden %}{{ field }}{{ field.errors }}{% else %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} <span aria-hidden="true">*</span>{% endif %}</label>{{ field }}{% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}{{ field.errors }}</div>{% endif %}{% endfor %}
+<div class="actions"><button class="button button-primary" type="submit">{{ submit_label }}</button><a class="button button-secondary" href="{% url 'case_detail' pk=case.pk %}">Cancelar</a></div>
+</form></div></section>
+{% endblock %}

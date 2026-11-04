@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} · Casa Funeraria Baranoa{% endblock %}
+{% block content %}
+<div class="page-header"><div><p class="eyebrow">{% if case %}{{ case.code }} · {{ case.deceased_name }}{% else %}Administración{% endif %}</p><h1 class="page-title">{{ title }}</h1>{% if hint %}<p class="page-description">{{ hint }}</p>{% endif %}</div></div>
+<section class="card"><div class="card-body">
+<form method="post" enctype="multipart/form-data" novalidate>{% csrf_token %}
+{{ form.as_p }}
+<div class="actions"><button class="button button-primary" type="submit">Guardar</button><a class="button button-secondary" href="{% if back_url %}{{ back_url }}{% elif case %}{% url 'case_detail' case.pk %}{% else %}{% url 'dashboard' %}{% endif %}">Volver</a></div>
+</form></div></section>
+{% endblock %}
